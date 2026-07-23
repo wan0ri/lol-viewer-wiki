@@ -26,7 +26,17 @@ League of Legends を「プレイはしないが配信や大会は見る」人�
 .
 ├── README.md
 └── docs/
-    └── requirements.md
+    ├── architecture/
+    │   ├── navigation.md
+    │   └── sitemap.md
+    ├── content/
+    │   ├── champion-page-template.md
+    │   └── sample-champion-ahri.md
+    └── project/
+        ├── mvp-champions.md
+        ├── mvp.md
+        ├── requirements.md
+        └── tasks.md
 ```
 
 実装が始まったら、`src/` や `public/` などのアプリケーション構成を追加していく想定です。
