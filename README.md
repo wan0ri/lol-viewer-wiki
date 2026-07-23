@@ -20,11 +20,20 @@ League of Legends を「プレイはしないが配信や大会は見る」人�
 - `Cloudflare Pages` で無料運用を想定
 - Riot 公式の静的データを利用しつつ、初心者向け解説は手動で編集
 
+## 開発メモ
+
+- Node.js は `.nvmrc` のバージョンを利用
+- 開発コマンド:
+  - `npm run dev`
+  - `npm run check`
+  - `npm run build`
+
 ## ディレクトリ構成
 
 ```text
 .
 ├── README.md
+├── astro.config.mjs
 └── docs/
     ├── architecture/
     │   ├── navigation.md
@@ -37,6 +46,19 @@ League of Legends を「プレイはしないが配信や大会は見る」人�
         ├── mvp.md
         ├── requirements.md
         └── tasks.md
+```
+
+```text
+.
+├── public/
+├── src/
+│   ├── components/
+│   ├── content/
+│   ├── layouts/
+│   └── pages/
+├── package.json
+├── tsconfig.json
+└── wrangler.jsonc
 ```
 
 実装が始まったら、`src/` や `public/` などのアプリケーション構成を追加していく想定です。
