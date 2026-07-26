@@ -13,6 +13,32 @@ export async function getStaticPaths() {
 
 const { term } = Astro.props;
 const { Content } = await render(term);
+const allTerms = await getCollection("terms");
+
+const relatedTerms = term.data.relatedTerms.map((relatedTitle) => {
+  const entry = allTerms.find((candidate) => candidate.data.title === relatedTitle);
+
+  return {
+    title: relatedTitle,
+    href: entry ? `/terms/${entry.id}/` : null
+  };
+});
+
+const pageLabels: Record<string, string> = {
+  "/start/": "はじめて見る人向け",
+  "/start/what-is-lol/": "LoLとは何か",
+  "/start/win-condition/": "勝利条件",
+  "/start/map-overview/": "サモナーズリフトの見方",
+  "/start/game-flow/": "試合の流れ",
+  "/start/how-to-watch/": "観戦するときにまず見るポイント",
+  "/terms/": "用語集トップ",
+  "/champions/": "チャンピオン一覧"
+};
+
+const relatedPages = term.data.relatedPages.map((page) => ({
+  href: page,
+  label: pageLabels[page] ?? page
+}));
 ---
 
 <BaseLayout title={`${term.data.title} | 用語集 | LoL Viewer Wiki`} description={term.data.description}>
@@ -29,10 +55,12 @@ const { Content } = await render(term);
       <section class="links">
         <div class="link-block">
           <h2>あわせて読む</h2>
-          {term.data.relatedTerms.length > 0 ? (
+          {relatedTerms.length > 0 ? (
             <ul>
-              {term.data.relatedTerms.map((related) => (
-                <li>{related}</li>
+              {relatedTerms.map((related) => (
+                <li>
+                  {related.href ? <a href={related.href}>{related.title}</a> : related.title}
+                </li>
               ))}
             </ul>
           ) : (
@@ -42,10 +70,10 @@ const { Content } = await render(term);
 
         <div class="link-block">
           <h2>関連ページ</h2>
-          {term.data.relatedPages.length > 0 ? (
+          {relatedPages.length > 0 ? (
             <ul>
-              {term.data.relatedPages.map((page) => (
-                <li><a href={page}>{page}</a></li>
+              {relatedPages.map((page) => (
+                <li><a href={page.href}>{page.label}</a></li>
               ))}
             </ul>
           ) : (
