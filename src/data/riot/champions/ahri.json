@@ -1,0 +1,37 @@
+{
+  "championKey": "Ahri",
+  "slug": "ahri",
+  "name": "アーリ",
+  "title": "九尾の狐",
+  "image": "/images/champions/ahri.png",
+  "resource": "マナ",
+  "roles": ["ミッド"],
+  "stats": {
+    "attack": 3,
+    "defense": 4,
+    "magic": 8,
+    "difficulty": 5
+  },
+  "skills": {
+    "passive": {
+      "name": "生気吸引",
+      "description": "一定条件で体力を回復し、継戦能力を支えるパッシブ。"
+    },
+    "q": {
+      "name": "幻惑のオーブ",
+      "description": "往復で当たるとダメージが伸びる基本スキル。"
+    },
+    "w": {
+      "name": "フォックスファイア",
+      "description": "近い相手へ自動で飛ぶ追撃用スキル。"
+    },
+    "e": {
+      "name": "チャーム",
+      "description": "当たると相手を引き寄せ、仕掛けの起点になるスキル。"
+    },
+    "r": {
+      "name": "スピリットラッシュ",
+      "description": "複数回のダッシュで攻めにも逃げにも使える大技。"
+    }
+  }
+}

@@ -85,12 +85,13 @@
 
 ## フェーズ6: コンテンツモデル作成
 
-- [ ] Astro の content collections を設計する
-- [ ] `terms` collection を作る
-- [ ] `champions` collection を作る
-- [ ] `patch-notes` collection を作る
-- [ ] 必要に応じて `objectives` collection を作る
-- [ ] 必要に応じて `roles` collection を作る
+- [x] Astro の content collections を設計する
+- [x] `terms` collection を作る
+- [x] `champions` collection を作る
+- [x] `patch-notes` collection を作る
+- [x] `championData` collection を作る
+- [x] `objectives` collection を作る
+- [x] `roles` collection を作る
 
 ## フェーズ7: 基本ページの実装
 
