@@ -1,0 +1,279 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const championEntries = await getCollection("champions");
+const championDataEntries = await getCollection("championData");
+
+const championDataByKey = new Map(
+  championDataEntries.map((entry) => [entry.data.championKey, entry])
+);
+
+const champions = championEntries
+  .map((entry) => {
+    const riotData = championDataByKey.get(entry.data.championKey);
+
+    return {
+      id: entry.id,
+      manual: entry,
+      riotData
+    };
+  })
+  .filter((entry) => entry.riotData)
+  .sort((a, b) => a.manual.data.title.localeCompare(b.manual.data.title, "ja"));
+---
+
+<BaseLayout title="チャンピオン一覧 | LoL Viewer Wiki" description="LoL観戦で見かけるチャンピオンを、役割と見どころから探せる一覧。">
+  <main class="page">
+    <section class="container hero">
+      <p class="label">チャンピオン一覧</p>
+      <h1>見た目は分かるけれど、何をするか分からない時に。</h1>
+      <p class="lead">
+        まずは MVP 対象のチャンピオンから、主なロールと「ひとことで言うと」を確認できる一覧を用意します。
+        今後はここから詳細ページへつなぎ、配信で見るポイントやルーン、よくあるアイテムまで広げます。
+      </p>
+    </section>
+
+    <section class="container section">
+      <div class="section-header">
+        <p class="section-label">収録チャンピオン</p>
+        <h2>まずは代表的なチャンピオンから</h2>
+      </div>
+
+      <div class="grid">
+        {champions.map(({ manual, riotData }) => (
+          <article class="card">
+            <div class="card-top">
+              <div>
+                <p class="name">{manual.data.title}</p>
+                <p class="subtitle">{riotData?.data.title}</p>
+              </div>
+              <div class="image-placeholder" aria-hidden="true">
+                {manual.data.title.slice(0, 1)}
+              </div>
+            </div>
+
+            <ul class="roles" aria-label="主なロール">
+              {manual.data.roles.map((role) => (
+                <li>{role}</li>
+              ))}
+            </ul>
+
+            <h3>ひとことで言うと</h3>
+            <p>{manual.data.summary}</p>
+
+            <div class="meta">
+              <span>難易度: {manual.data.difficulty}</span>
+              <span>リソース: {riotData?.data.resource}</span>
+            </div>
+
+            <div class="footer-links">
+              <span class="coming-soon">詳細ページは次段階で実装予定</span>
+              <a href={`/terms/`}>関連用語を見る</a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="container section section-split">
+      <article class="panel">
+        <p class="section-label">一覧で見るもの</p>
+        <h2>まず確認したい項目</h2>
+        <ul>
+          <li>名前</li>
+          <li>主なロール</li>
+          <li>ひとことで言うと</li>
+          <li>難易度とリソース</li>
+        </ul>
+      </article>
+
+      <article class="panel">
+        <p class="section-label">次に読む</p>
+        <h2>理解を広げる導線</h2>
+        <ul>
+          <li><a href="/roles/">ロール解説</a></li>
+          <li><a href="/terms/">用語集</a></li>
+          <li><a href="/start/">はじめて見る人向け</a></li>
+        </ul>
+      </article>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .page {
+    padding: 56px 0 72px;
+  }
+
+  .container {
+    width: min(1120px, calc(100% - 32px));
+    margin: 0 auto;
+  }
+
+  .hero {
+    margin-bottom: 24px;
+    padding: 32px;
+    border: 1px solid rgba(30, 28, 25, 0.12);
+    border-radius: 28px;
+    background: rgba(255, 252, 247, 0.92);
+    box-shadow: 0 18px 40px rgba(60, 40, 22, 0.12);
+  }
+
+  .label,
+  .section-label {
+    margin: 0 0 12px;
+    color: #8f331f;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 0.78rem;
+  }
+
+  h1,
+  h2,
+  h3,
+  p,
+  ul {
+    margin-top: 0;
+  }
+
+  h1 {
+    margin-bottom: 18px;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    line-height: 1.05;
+  }
+
+  .lead,
+  .card p,
+  .panel li,
+  .coming-soon {
+    color: #5f5a52;
+    line-height: 1.7;
+  }
+
+  .section {
+    padding-top: 12px;
+  }
+
+  .section-header {
+    margin-bottom: 18px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .card,
+  .panel {
+    border-radius: 24px;
+    border: 1px solid rgba(30, 28, 25, 0.12);
+    background: rgba(255, 252, 247, 0.92);
+    padding: 24px;
+    box-shadow: 0 18px 40px rgba(60, 40, 22, 0.12);
+  }
+
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .name {
+    font-size: 1.3rem;
+    font-weight: 800;
+    margin-bottom: 4px;
+  }
+
+  .subtitle {
+    color: #8c8479;
+    margin-bottom: 0;
+  }
+
+  .image-placeholder {
+    width: 72px;
+    height: 72px;
+    border-radius: 20px;
+    display: grid;
+    place-items: center;
+    background: linear-gradient(135deg, rgba(187, 79, 53, 0.18), rgba(30, 28, 25, 0.08));
+    color: #8f331f;
+    font-weight: 800;
+    font-size: 1.4rem;
+    flex-shrink: 0;
+  }
+
+  .roles {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    list-style: none;
+    padding: 0;
+    margin: 0 0 16px;
+  }
+
+  .roles li {
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: rgba(187, 79, 53, 0.12);
+    color: #8f331f;
+    font-size: 0.84rem;
+    font-weight: 700;
+  }
+
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 16px;
+    margin-top: 16px;
+    color: #6d665d;
+    font-size: 0.92rem;
+  }
+
+  .footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 18px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(30, 28, 25, 0.08);
+  }
+
+  .footer-links a {
+    color: #8f331f;
+    font-weight: 700;
+  }
+
+  .section-split {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    margin-top: 18px;
+  }
+
+  .panel ul {
+    margin-bottom: 0;
+    padding-left: 1.2rem;
+  }
+
+  .panel li + li {
+    margin-top: 10px;
+  }
+
+  @media (max-width: 840px) {
+    .grid,
+    .section-split {
+      grid-template-columns: 1fr;
+    }
+
+    .hero,
+    .card,
+    .panel {
+      padding: 24px;
+      border-radius: 22px;
+    }
+  }
+</style>

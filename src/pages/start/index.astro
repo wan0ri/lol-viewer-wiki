@@ -1,35 +1,195 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const articles = [
+  {
+    href: "/start/what-is-lol/",
+    title: "LoLとは何か",
+    body: "まずはどんなゲームかをざっくり掴みたい人向けの入口です。"
+  },
+  {
+    href: "/start/win-condition/",
+    title: "勝利条件",
+    body: "何を壊せば勝ちで、途中のキルやオブジェクトが何のためにあるかを整理します。"
+  },
+  {
+    href: "/start/map-overview/",
+    title: "サモナーズリフトの見方",
+    body: "ミニマップやレーン、川、ジャングルを画面上でどう見ればよいかを説明します。"
+  },
+  {
+    href: "/start/game-flow/",
+    title: "試合の流れ",
+    body: "序盤、中盤、終盤で何が起きやすいかを観戦目線でまとめます。"
+  },
+  {
+    href: "/start/how-to-watch/",
+    title: "観戦するときにまず見るポイント",
+    body: "配信で迷った時に、どこを見れば理解しやすいかを絞って案内します。"
+  }
+];
 ---
 
 <BaseLayout title="はじめて見る人向け | LoL Viewer Wiki">
   <main class="page">
-    <section class="container">
-      <p class="label">準備中</p>
+    <section class="container hero">
+      <p class="label">はじめて見る人向け</p>
       <h1>はじめて見る人向け</h1>
-      <p>LoL とは何か、勝利条件、マップの見方、試合の流れを順番に読める入口ページをここに実装します。</p>
+      <p class="lead">
+        LoL をほとんど知らなくても、配信や大会で何が起きているかを順番に理解できる入口ページです。
+        迷ったら、まずは下の順番どおりに読むと全体像を掴みやすくなります。
+      </p>
+    </section>
+
+    <section class="container section">
+      <div class="section-header">
+        <p class="section-label">おすすめ順</p>
+        <h2>最初に読むならこの順番</h2>
+      </div>
+
+      <div class="grid">
+        {articles.map((article, index) => (
+          <a class="card" href={article.href}>
+            <p class="step">STEP {index + 1}</p>
+            <h3>{article.title}</h3>
+            <p>{article.body}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section class="container section section-split">
+      <article class="panel">
+        <p class="section-label">先に覚えること</p>
+        <h2>まず押さえたい考え方</h2>
+        <ul>
+          <li>キルの数だけで勝敗が決まるゲームではありません。</li>
+          <li>マップ上の位置取りとオブジェクトが試合の流れを大きく変えます。</li>
+          <li>ロールごとに、前に出る人と火力を出す人の役割が分かれています。</li>
+        </ul>
+      </article>
+
+      <article class="panel">
+        <p class="section-label">寄り道するなら</p>
+        <h2>関連ページ</h2>
+        <ul>
+          <li><a href="/terms/">用語集</a></li>
+          <li><a href="/roles/">ロール解説</a></li>
+          <li><a href="/objectives/">オブジェクト解説</a></li>
+        </ul>
+      </article>
     </section>
   </main>
 </BaseLayout>
 
 <style>
   .page {
-    padding: 64px 0;
+    padding: 56px 0 72px;
   }
+
   .container {
-    width: min(960px, calc(100% - 32px));
+    width: min(1120px, calc(100% - 32px));
     margin: 0 auto;
-    padding: 28px;
-    border: 1px solid rgba(30, 28, 25, 0.12);
-    border-radius: 24px;
-    background: rgba(255, 252, 247, 0.92);
   }
-  .label {
+
+  .hero {
+    margin-bottom: 24px;
+    padding: 32px;
+    border: 1px solid rgba(30, 28, 25, 0.12);
+    border-radius: 28px;
+    background: rgba(255, 252, 247, 0.92);
+    box-shadow: 0 18px 40px rgba(60, 40, 22, 0.12);
+  }
+
+  .label,
+  .section-label {
     margin: 0 0 12px;
     color: #8f331f;
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     font-size: 0.78rem;
+  }
+
+  h1,
+  h2,
+  h3,
+  p,
+  ul {
+    margin-top: 0;
+  }
+
+  h1 {
+    margin-bottom: 18px;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    line-height: 1.05;
+  }
+
+  .lead,
+  .card p,
+  .panel li {
+    color: #5f5a52;
+    line-height: 1.7;
+  }
+
+  .section {
+    padding-top: 12px;
+  }
+
+  .section-header {
+    margin-bottom: 18px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .card,
+  .panel {
+    border-radius: 24px;
+    border: 1px solid rgba(30, 28, 25, 0.12);
+    background: rgba(255, 252, 247, 0.92);
+    padding: 24px;
+    box-shadow: 0 18px 40px rgba(60, 40, 22, 0.12);
+  }
+
+  .step {
+    margin-bottom: 8px;
+    color: #8f331f;
+    font-weight: 700;
+    font-size: 0.82rem;
+    letter-spacing: 0.08em;
+  }
+
+  .section-split {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    margin-top: 18px;
+  }
+
+  .panel ul {
+    margin-bottom: 0;
+    padding-left: 1.2rem;
+  }
+
+  .panel li + li {
+    margin-top: 10px;
+  }
+
+  @media (max-width: 840px) {
+    .grid,
+    .section-split {
+      grid-template-columns: 1fr;
+    }
+
+    .hero,
+    .card,
+    .panel {
+      padding: 24px;
+      border-radius: 22px;
+    }
   }
 </style>

@@ -1,0 +1,340 @@
+---
+const mapSrc = "https://ddragon.leagueoflegends.com/cdn/6.8.1/img/map/map11.png";
+
+const labels = [
+  {
+    title: "トップレーン",
+    body: "上側の長いレーンです。1対1になりやすく、孤立した戦いが起きやすい場所です。",
+    x: "10%",
+    y: "11%",
+    step: "1"
+  },
+  {
+    title: "ミッドレーン",
+    body: "中央の短いレーンです。上下どちらにも動きやすく、試合全体に影響しやすい場所です。",
+    x: "45%",
+    y: "49%",
+    step: "2"
+  },
+  {
+    title: "ボットレーン",
+    body: "下側の長いレーンです。ADC とサポートがいることが多く、ドラゴンにも寄りやすいです。",
+    x: "74%",
+    y: "85%",
+    step: "3"
+  },
+  {
+    title: "ジャングル",
+    body: "レーンの間にある森エリアです。奇襲、視界、モンスター管理に関わります。",
+    x: "24%",
+    y: "60%",
+    step: "4"
+  },
+  {
+    title: "川",
+    body: "マップ中央を斜めにつなぐ通り道です。ドラゴンやバロン周りへ移動するときの重要地帯です。",
+    x: "58%",
+    y: "29%",
+    step: "5"
+  },
+  {
+    title: "ドラゴン",
+    body: "下側の主要オブジェクトです。序盤から中盤で争いが起きやすい場所です。",
+    x: "64%",
+    y: "57%",
+    step: "6"
+  },
+  {
+    title: "バロン",
+    body: "上側の主要オブジェクトです。中盤以降の大きな勝ち筋として扱われます。",
+    x: "17%",
+    y: "38%",
+    step: "7"
+  }
+];
+
+const markers = [
+  {
+    title: "青側拠点",
+    body: "左下側の拠点です。配信ではこの側から出てくるチームを青側として見ます。",
+    x: "8%",
+    y: "90%",
+    tone: "blue"
+  },
+  {
+    title: "赤側拠点",
+    body: "右上側の拠点です。青側と反対のスタート位置として覚えると分かりやすいです。",
+    x: "92%",
+    y: "8%",
+    tone: "red"
+  },
+  {
+    title: "ドラゴン前で集まりやすい場所",
+    body: "視界を取り合い、先に寄った側が戦いを始めやすい場所です。集団戦の前ぶれとして見やすいポイントです。",
+    x: "60%",
+    y: "62%",
+    tone: "hotspot"
+  }
+];
+---
+
+<figure class="map-figure">
+  <div class="map-shell">
+    <img
+      class="map-image"
+      src={mapSrc}
+      alt="サモナーズリフトの地図に、トップレーン、ミッドレーン、ボットレーン、ジャングル、川、ドラゴン、バロンの位置を番号で示した注釈付きマップ"
+      loading="lazy"
+    />
+
+    {markers.map((marker) => (
+      <div class={`marker ${marker.tone}`} style={`left:${marker.x}; top:${marker.y};`} aria-label={marker.title}></div>
+    ))}
+
+    {labels.map((label) => (
+      <div class="pin" style={`left:${label.x}; top:${label.y};`} aria-label={`${label.step}. ${label.title}`}>
+        <span class="step-badge">{label.step}</span>
+      </div>
+    ))}
+  </div>
+
+  <div class="guide-blocks">
+    <section class="guide-section" aria-labelledby="map-steps-title">
+      <h3 id="map-steps-title">番号の見方</h3>
+      <ul class="step-list">
+        {labels.map((label) => (
+          <li class="step-item">
+            <span class="step-chip">{label.step}</span>
+            <div>
+              <p class="item-title">{label.step}. {label.title}</p>
+              <p class="item-body">{label.body}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="guide-section" aria-labelledby="map-symbols-title">
+      <h3 id="map-symbols-title">記号の見方</h3>
+      <div class="symbol-list">
+        {markers.map((marker) => (
+          <article class="symbol-card">
+            <div class={`symbol-chip ${marker.tone}`} aria-hidden="true"></div>
+            <div>
+              <p class="item-title">{marker.title}</p>
+              <p class="item-body">{marker.body}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  </div>
+
+  <figcaption>
+    Riot Games の公式マップ画像をもとに、観戦初心者向けの注釈を加えた案内図です。
+  </figcaption>
+</figure>
+
+<style>
+  .map-figure {
+    margin: 0;
+  }
+
+  .map-shell {
+    position: relative;
+    overflow: hidden;
+    border-radius: 24px;
+    border: 1px solid rgba(30, 28, 25, 0.12);
+    background: rgba(255, 252, 247, 0.92);
+    box-shadow: 0 18px 40px rgba(60, 40, 22, 0.12);
+  }
+
+  .map-image {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .pin {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+  }
+
+  .step-badge {
+    min-width: 28px;
+    height: 28px;
+    padding: 0 8px;
+    display: grid;
+    place-items: center;
+    border-radius: 999px;
+    background: #bb4f35;
+    border: 2px solid rgba(255, 252, 247, 0.95);
+    color: #fff;
+    font-size: 0.82rem;
+    font-weight: 800;
+    line-height: 1;
+    box-shadow: 0 10px 24px rgba(50, 24, 14, 0.3);
+  }
+
+  .marker {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    width: 22px;
+    height: 22px;
+    border-radius: 999px;
+    border: 2px solid rgba(255, 252, 247, 0.95);
+    box-shadow: 0 10px 24px rgba(50, 24, 14, 0.24);
+    z-index: 2;
+  }
+
+  .marker.blue,
+  .symbol-chip.blue {
+    background: #2f69c4;
+  }
+
+  .marker.red,
+  .symbol-chip.red {
+    background: #b03636;
+  }
+
+  .marker.hotspot,
+  .symbol-chip.hotspot {
+    background: rgba(187, 79, 53, 0.18);
+    border-color: #bb4f35;
+  }
+
+  .marker.hotspot {
+    width: 36px;
+    height: 36px;
+    background: rgba(187, 79, 53, 0.16);
+    border: 3px solid #bb4f35;
+    box-shadow: 0 0 0 8px rgba(187, 79, 53, 0.08);
+  }
+
+  .guide-blocks {
+    display: grid;
+    gap: 18px;
+    margin-top: 18px;
+  }
+
+  .guide-section {
+    padding: 20px;
+    border-radius: 22px;
+    background: rgba(255, 252, 247, 0.94);
+    border: 1px solid rgba(30, 28, 25, 0.12);
+    box-shadow: 0 12px 24px rgba(50, 24, 14, 0.08);
+  }
+
+  .guide-section h3 {
+    margin: 0 0 14px;
+    font-size: 1rem;
+    color: #1e1c19;
+  }
+
+  .step-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px 18px;
+  }
+
+  .step-item,
+  .symbol-card {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 12px;
+    align-items: start;
+  }
+
+  .step-chip,
+  .symbol-chip {
+    min-width: 30px;
+    height: 30px;
+    padding: 0;
+    display: grid;
+    place-items: center;
+    border-radius: 999px;
+    border: 2px solid transparent;
+  }
+
+  .step-chip {
+    padding: 0 8px;
+    background: #bb4f35;
+    color: #fff;
+    font-size: 0.82rem;
+    font-weight: 800;
+    line-height: 1;
+  }
+
+  .symbol-list {
+    display: grid;
+    gap: 14px;
+  }
+
+  .item-title,
+  .item-body {
+    margin: 0;
+  }
+
+  .item-title {
+    margin-bottom: 4px;
+    font-size: 0.92rem;
+    font-weight: 800;
+    color: #1e1c19;
+  }
+
+  .item-body {
+    font-size: 0.84rem;
+    line-height: 1.6;
+    color: #5f5a52;
+  }
+
+  figcaption {
+    margin-top: 10px;
+    color: #6d665d;
+    font-size: 0.88rem;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 720px) {
+    .step-list {
+      grid-template-columns: 1fr;
+    }
+
+    .guide-section {
+      padding: 16px;
+      border-radius: 18px;
+    }
+
+    .step-badge,
+    .step-chip {
+      min-width: 26px;
+      height: 26px;
+      font-size: 0.74rem;
+    }
+
+    .marker,
+    .symbol-chip {
+      width: 26px;
+      min-width: 26px;
+      height: 26px;
+    }
+
+    .marker.hotspot {
+      width: 32px;
+      height: 32px;
+    }
+
+    .item-title {
+      font-size: 0.88rem;
+    }
+
+    .item-body,
+    figcaption {
+      font-size: 0.8rem;
+    }
+  }
+</style>

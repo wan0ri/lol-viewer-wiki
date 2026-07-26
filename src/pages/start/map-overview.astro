@@ -1,0 +1,80 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SummonersRiftMap from "../../components/SummonersRiftMap.astro";
+---
+
+<BaseLayout title="サモナーズリフトの見方 | LoL Viewer Wiki">
+  <main class="page">
+    <article class="container article">
+      <p class="label">STEP 3</p>
+      <h1>サモナーズリフトの見方</h1>
+      <p class="lead">LoL の標準マップは、3本のレーンとその間のジャングルでできています。</p>
+
+      <section>
+        <h2>ひとことで言うと</h2>
+        <p>配信で迷ったら、まずは「どのレーンで何人が見えているか」と「川やドラゴン周りに人が集まり始めているか」を見ると理解しやすいです。</p>
+      </section>
+
+      <section>
+        <h2>マップの主な場所</h2>
+        <ul>
+          <li>トップレーン: 上側のレーン。長く孤立しやすいです。</li>
+          <li>ミッドレーン: 中央のレーン。全体へ動きやすい場所です。</li>
+          <li>ボットレーン: 下側のレーン。ADC とサポートがいることが多いです。</li>
+          <li>ジャングル: レーンの間にあり、モンスターや奇襲の動きに関わります。</li>
+          <li>川: ドラゴンやバロン周辺へつながる重要地帯です。</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>注釈付きマップ</h2>
+        <p>まずは、トップ・ミッド・ボットの3本のレーンと、ジャングル、川、ドラゴン、バロンの位置関係だけ掴めれば十分です。</p>
+        <SummonersRiftMap />
+      </section>
+
+      <section>
+        <h2>配信で見るべき場所</h2>
+        <ul>
+          <li>ミニマップで人数差ができていないか</li>
+          <li>ドラゴンやバロン前に先に寄っているチームはどちらか</li>
+          <li>サイドレーンに1人で長くいるプレイヤーが狙われそうか</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>ここだけ覚えればOK</h2>
+        <p>細かい地形名を覚えるより、まずは<strong>レーン・ジャングル・川</strong>の3つに分けて見るだけでも十分です。</p>
+      </section>
+
+      <section class="links">
+        <div class="link-block">
+          <h2>次に読む</h2>
+          <p><a href="/start/game-flow/">試合の流れ</a></p>
+        </div>
+        <div class="link-block">
+          <h2>あわせて読む</h2>
+          <ul>
+            <li><a href="/roles/">ロール解説</a></li>
+            <li><a href="/objectives/">オブジェクト解説</a></li>
+          </ul>
+        </div>
+      </section>
+    </article>
+  </main>
+</BaseLayout>
+
+<style>
+  .page { padding: 56px 0 72px; }
+  .container { width: min(880px, calc(100% - 32px)); margin: 0 auto; }
+  .article { padding: 32px; border: 1px solid rgba(30, 28, 25, 0.12); border-radius: 28px; background: rgba(255, 252, 247, 0.92); box-shadow: 0 18px 40px rgba(60, 40, 22, 0.12); }
+  .label { margin: 0 0 12px; color: #8f331f; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; font-size: 0.78rem; }
+  h1, h2, p, ul { margin-top: 0; }
+  h1 { margin-bottom: 16px; font-size: clamp(2rem, 4vw, 3rem); line-height: 1.08; }
+  .lead, p, li { color: #5f5a52; line-height: 1.8; }
+  section + section { margin-top: 24px; }
+  ul { padding-left: 1.2rem; margin-bottom: 0; }
+  li + li { margin-top: 10px; }
+  .links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 30px; }
+  .link-block { padding: 20px; border-radius: 22px; background: rgba(30, 28, 25, 0.04); }
+  @media (max-width: 840px) { .article { padding: 24px; border-radius: 22px; } .links { grid-template-columns: 1fr; } }
+</style>

@@ -1,5 +1,8 @@
-import { defineConfig } from "astro/config";
+import { defineConfig, passthroughImageService } from "astro/config";
 
 export default defineConfig({
-  site: "https://lol-viewer-wiki.pages.dev"
+  site: "https://lol-viewer-wiki.pages.dev",
+  image: {
+    service: passthroughImageService()
+  }
 });
