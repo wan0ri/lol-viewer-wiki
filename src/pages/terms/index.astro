@@ -1,0 +1,213 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const terms = (await getCollection("terms"))
+  .sort((a, b) => {
+    const orderA = a.data.order ?? Number.MAX_SAFE_INTEGER;
+    const orderB = b.data.order ?? Number.MAX_SAFE_INTEGER;
+
+    if (orderA !== orderB) return orderA - orderB;
+    return a.data.title.localeCompare(b.data.title, "ja");
+  });
+---
+
+<BaseLayout title="用語集 | LoL Viewer Wiki" description="LoL観戦でよく出る言葉を、初心者向けにやさしく引ける用語集。">
+  <main class="page">
+    <section class="container hero">
+      <p class="label">用語集</p>
+      <h1>配信で聞く言葉を、ここから引けます。</h1>
+      <p class="lead">
+        CS、ガンク、エンゲージのような、LoL観戦でよく出る言葉を初心者向けに整理していきます。
+        まずは頻出用語から追加し、あとから関連用語へ広げやすい形で管理します。
+      </p>
+    </section>
+
+    <section class="container section">
+      <div class="section-header">
+        <p class="section-label">収録用語</p>
+        <h2>まず覚えたい言葉</h2>
+      </div>
+
+      <div class="grid">
+        {terms.map((term) => (
+          <a class="card" href={`/terms/${term.id}/`}>
+            <div class="card-top">
+              <h3>{term.data.title}</h3>
+              {term.data.order && <span class="chip">優先 {term.data.order}</span>}
+            </div>
+            <p>{term.data.description}</p>
+            {term.data.relatedTerms.length > 0 && (
+              <ul class="meta">
+                {term.data.relatedTerms.map((related) => (
+                  <li>{related}</li>
+                ))}
+              </ul>
+            )}
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section class="container section section-split">
+      <article class="panel">
+        <p class="section-label">読み方の目安</p>
+        <h2>まずはここを見る</h2>
+        <ol>
+          <li>意味が分からない言葉を探す</li>
+          <li>説明を読んで、画面上で何が起きるかを掴む</li>
+          <li>関連用語から、よく一緒に出る言葉へ広げる</li>
+        </ol>
+      </article>
+
+      <article class="panel">
+        <p class="section-label">次に読む</p>
+        <h2>理解を広げる導線</h2>
+        <ul>
+          <li><a href="/start/">はじめて見る人向け</a></li>
+          <li><a href="/roles/">ロール解説</a></li>
+          <li><a href="/champions/">チャンピオン一覧</a></li>
+        </ul>
+      </article>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .page {
+    padding: 56px 0 72px;
+  }
+
+  .container {
+    width: min(1120px, calc(100% - 32px));
+    margin: 0 auto;
+  }
+
+  .hero {
+    margin-bottom: 24px;
+    padding: 32px;
+    border: 1px solid rgba(30, 28, 25, 0.12);
+    border-radius: 28px;
+    background: rgba(255, 252, 247, 0.92);
+    box-shadow: 0 18px 40px rgba(60, 40, 22, 0.12);
+  }
+
+  .label,
+  .section-label {
+    margin: 0 0 12px;
+    color: #8f331f;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 0.78rem;
+  }
+
+  h1,
+  h2,
+  h3,
+  p,
+  ol,
+  ul {
+    margin-top: 0;
+  }
+
+  h1 {
+    margin-bottom: 18px;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    line-height: 1.05;
+  }
+
+  .lead,
+  .card p,
+  .panel li {
+    color: #5f5a52;
+    line-height: 1.7;
+  }
+
+  .section {
+    padding-top: 12px;
+  }
+
+  .section-header {
+    margin-bottom: 18px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .card,
+  .panel {
+    border-radius: 24px;
+    border: 1px solid rgba(30, 28, 25, 0.12);
+    background: rgba(255, 252, 247, 0.92);
+    padding: 24px;
+    box-shadow: 0 18px 40px rgba(60, 40, 22, 0.12);
+  }
+
+  .card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+
+  .chip {
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: rgba(187, 79, 53, 0.12);
+    color: #8f331f;
+    font-size: 0.82rem;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    list-style: none;
+    padding: 0;
+    margin: 14px 0 0;
+  }
+
+  .meta li {
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: rgba(30, 28, 25, 0.06);
+    color: #5f5a52;
+    font-size: 0.85rem;
+  }
+
+  .section-split {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    margin-top: 18px;
+  }
+
+  .panel ol,
+  .panel ul {
+    margin-bottom: 0;
+    padding-left: 1.2rem;
+  }
+
+  .panel li + li {
+    margin-top: 10px;
+  }
+
+  @media (max-width: 840px) {
+    .grid,
+    .section-split {
+      grid-template-columns: 1fr;
+    }
+
+    .hero {
+      padding: 24px;
+      border-radius: 22px;
+    }
+  }
+</style>

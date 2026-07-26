@@ -1,0 +1,73 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="観戦するときにまず見るポイント | LoL Viewer Wiki">
+  <main class="page">
+    <article class="container article">
+      <p class="label">STEP 5</p>
+      <h1>観戦するときにまず見るポイント</h1>
+      <p class="lead">全部を追おうとすると難しいので、最初は見る場所を絞ると理解しやすくなります。</p>
+
+      <section>
+        <h2>最初に見るのはこの3つ</h2>
+        <ul>
+          <li>ミニマップで人数差ができていないか</li>
+          <li>次のドラゴンやバロンに向けて、どちらが先に集まっているか</li>
+          <li>集団戦で最初に前へ出るのは誰か</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>少し慣れてきたら見ること</h2>
+        <ul>
+          <li>ADC やミッドが安全に火力を出せているか</li>
+          <li>サポートやジャングルが視界を取れているか</li>
+          <li>集団戦に勝った後、どのオブジェクトを取りに行くか</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>ここだけ覚えればOK</h2>
+        <p>
+          初心者のうちは、<strong>「誰がどこにいるか」「次に何を取りに行くか」</strong> の2つを意識するだけでも、配信の見え方がかなり変わります。
+        </p>
+      </section>
+
+      <section>
+        <h2>次に広げるなら</h2>
+        <p>ここまで読めたら、用語集やチャンピオン一覧へ進むと、配信で聞こえる言葉や登場キャラの役割がつながりやすくなります。</p>
+      </section>
+
+      <section class="links">
+        <div class="link-block">
+          <h2>次に読む</h2>
+          <p><a href="/terms/">用語集</a></p>
+        </div>
+        <div class="link-block">
+          <h2>あわせて読む</h2>
+          <ul>
+            <li><a href="/champions/">チャンピオン一覧</a></li>
+            <li><a href="/roles/">ロール解説</a></li>
+          </ul>
+        </div>
+      </section>
+    </article>
+  </main>
+</BaseLayout>
+
+<style>
+  .page { padding: 56px 0 72px; }
+  .container { width: min(880px, calc(100% - 32px)); margin: 0 auto; }
+  .article { padding: 32px; border: 1px solid rgba(30, 28, 25, 0.12); border-radius: 28px; background: rgba(255, 252, 247, 0.92); box-shadow: 0 18px 40px rgba(60, 40, 22, 0.12); }
+  .label { margin: 0 0 12px; color: #8f331f; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; font-size: 0.78rem; }
+  h1, h2, p, ul { margin-top: 0; }
+  h1 { margin-bottom: 16px; font-size: clamp(2rem, 4vw, 3rem); line-height: 1.08; }
+  .lead, p, li { color: #5f5a52; line-height: 1.8; }
+  section + section { margin-top: 24px; }
+  ul { padding-left: 1.2rem; margin-bottom: 0; }
+  li + li { margin-top: 10px; }
+  .links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 30px; }
+  .link-block { padding: 20px; border-radius: 22px; background: rgba(30, 28, 25, 0.04); }
+  @media (max-width: 840px) { .article { padding: 24px; border-radius: 22px; } .links { grid-template-columns: 1fr; } }
+</style>
