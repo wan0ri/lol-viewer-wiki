@@ -1,0 +1,97 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const comparisons = [
+  {
+    role: "トップ",
+    lane: "上側の長いレーン",
+    focus: "前線作りとサイド管理",
+    watch: "1対1の勝ち負けと、後半の硬さ"
+  },
+  {
+    role: "ジャングル",
+    lane: "レーン外の森エリア",
+    focus: "奇襲とオブジェクト管理",
+    watch: "どこへ先に寄るか"
+  },
+  {
+    role: "ミッド",
+    lane: "中央の短いレーン",
+    focus: "火力と展開作り",
+    watch: "ロームや人数差作り"
+  },
+  {
+    role: "ADC",
+    lane: "下側の長いレーン",
+    focus: "継続火力の主力",
+    watch: "安全に殴り続けられるか"
+  },
+  {
+    role: "サポート",
+    lane: "主にボット周辺",
+    focus: "視界、守り、仕掛け",
+    watch: "戦闘開始と味方保護"
+  }
+];
+---
+
+<BaseLayout title="ロール比較 | LoL Viewer Wiki" description="5つのロールの違いを、観戦初心者向けに横並びで整理した比較ページ。">
+  <main class="page">
+    <article class="container article">
+      <p class="label">ロール比較</p>
+      <h1>5つのロールは、何が違うのか。</h1>
+      <p class="lead">
+        配信で混乱しやすいのは、同じチームでも全員が同じ仕事をしているわけではないことです。
+        このページでは、各ロールの `いる場所`、`主な役割`、`観戦での見どころ` を横並びで整理します。
+      </p>
+
+      <div class="table-like">
+        {comparisons.map((item) => (
+          <section class="row">
+            <h2>{item.role}</h2>
+            <p><strong>主にいる場所:</strong> {item.lane}</p>
+            <p><strong>主な役割:</strong> {item.focus}</p>
+            <p><strong>観戦で見る点:</strong> {item.watch}</p>
+          </section>
+        ))}
+      </div>
+
+      <section class="links">
+        <div class="link-block">
+          <h2>ロール別に読む</h2>
+          <ul>
+            <li><a href="/roles/top/">トップ</a></li>
+            <li><a href="/roles/jungle/">ジャングル</a></li>
+            <li><a href="/roles/mid/">ミッド</a></li>
+            <li><a href="/roles/adc/">ADC</a></li>
+            <li><a href="/roles/support/">サポート</a></li>
+          </ul>
+        </div>
+        <div class="link-block">
+          <h2>あわせて読む</h2>
+          <ul>
+            <li><a href="/objectives/">オブジェクト解説</a></li>
+            <li><a href="/terms/">用語集</a></li>
+          </ul>
+        </div>
+      </section>
+    </article>
+  </main>
+</BaseLayout>
+
+<style>
+  .page { padding: 56px 0 72px; }
+  .container { width: min(880px, calc(100% - 32px)); margin: 0 auto; }
+  .article { padding: 32px; border: 1px solid rgba(30, 28, 25, 0.12); border-radius: 28px; background: rgba(255, 252, 247, 0.92); box-shadow: 0 18px 40px rgba(60, 40, 22, 0.12); }
+  .label { margin: 0 0 12px; color: #8f331f; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; font-size: 0.78rem; }
+  h1, h2, p, ul { margin-top: 0; }
+  h1 { margin-bottom: 16px; font-size: clamp(2rem, 4vw, 3rem); line-height: 1.08; }
+  .lead, .row p, .links li { color: #5f5a52; line-height: 1.8; }
+  .table-like { display: grid; gap: 16px; margin-top: 28px; }
+  .row, .link-block { padding: 20px; border-radius: 22px; background: rgba(30, 28, 25, 0.04); }
+  .row h2 { margin-bottom: 12px; }
+  .links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 28px; }
+  .link-block ul { margin-bottom: 0; padding-left: 1.2rem; }
+  .link-block li + li { margin-top: 10px; }
+  @media (max-width: 840px) { .article { padding: 24px; border-radius: 22px; } .links { grid-template-columns: 1fr; } }
+</style>
