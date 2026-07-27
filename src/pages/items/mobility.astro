@@ -1,0 +1,65 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="動きやすくなるアイテム | LoL Viewer Wiki" description="LoL観戦初心者向けに、移動や位置取りを助けるアイテムの見方を解説。">
+  <main class="page">
+    <article class="container article">
+      <p class="label">アイテム入門</p>
+      <h1>動きやすくなるアイテム</h1>
+      <p class="lead">先に寄る、仕掛ける、逃げるといった `位置取り` を助けるカテゴリです。観戦では、戦いが始まる前の有利を作りやすくなります。</p>
+
+      <section class="block">
+        <h2>ひとことで言うと</h2>
+        <p>移動系アイテムは、火力そのものよりも `良い位置に先に着く` ための買い方です。</p>
+      </section>
+
+      <section class="block">
+        <h2>よく見える場面</h2>
+        <ul>
+          <li>サポートやジャングルが先に川へ入る時</li>
+          <li>ADC やメイジが危険な相手から距離を取りたい時</li>
+          <li>サイドレーンから集団戦へ寄りたい時</li>
+        </ul>
+      </section>
+
+      <section class="block">
+        <h2>代表的な見え方</h2>
+        <ul>
+          <li><strong>ラピッド ファイアキャノン</strong>: 遠くから安全に触りやすくなります。</li>
+          <li><strong>デッドマン プレート系</strong>: 前線役が先に位置を取りやすくなります。</li>
+          <li><strong>アクティブ移動補助つきアイテム</strong>: 仕掛けや逃げの速度が分かりやすく変わります。</li>
+        </ul>
+      </section>
+
+      <section class="block">
+        <h2>観戦ではここを見る</h2>
+        <ul>
+          <li>ドラゴン前やバロン前に、どちらが先に入れているか</li>
+          <li>仕掛け役が射程や速度を活かして角度を作れているか</li>
+          <li>危険な相手から火力役が距離を取りやすくなっているか</li>
+        </ul>
+      </section>
+
+      <section class="links">
+        <a href="/items/when-to-buy/">次に読む: どういう時に買うか</a>
+        <a href="/items/">アイテム入門トップ</a>
+      </section>
+    </article>
+  </main>
+</BaseLayout>
+
+<style>
+  .page { padding: 56px 0 72px; }
+  .container { width: min(880px, calc(100% - 32px)); margin: 0 auto; }
+  .article { padding: 32px; border: 1px solid rgba(30, 28, 25, 0.12); border-radius: 28px; background: rgba(255, 252, 247, 0.92); box-shadow: 0 18px 40px rgba(60, 40, 22, 0.12); }
+  .label { margin: 0 0 12px; color: #8f331f; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; font-size: 0.78rem; }
+  h1, h2, p, ul { margin-top: 0; }
+  h1 { margin-bottom: 16px; font-size: clamp(2rem, 4vw, 3rem); line-height: 1.08; }
+  .lead, .block p, .block li { color: #5f5a52; line-height: 1.8; }
+  .block + .block { margin-top: 24px; }
+  .block ul { margin-bottom: 0; padding-left: 1.2rem; }
+  .block li + li { margin-top: 10px; }
+  .links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+  .links a { padding: 12px 16px; border-radius: 999px; background: rgba(30, 28, 25, 0.06); font-weight: 700; }
+</style>
