@@ -1,0 +1,111 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const categories = [
+  {
+    href: "/items/damage/",
+    title: "火力を上げるアイテム",
+    body: "相手を早く倒したい時に選ばれやすい、攻撃寄りのアイテムを整理します。"
+  },
+  {
+    href: "/items/defense/",
+    title: "硬くなるアイテム",
+    body: "前に立つ時間を伸ばしたい時に選ばれやすい、防御寄りのアイテムを扱います。"
+  },
+  {
+    href: "/items/sustain/",
+    title: "回復や継戦能力",
+    body: "長く戦いたい時や、じわじわ有利を作りたい時に見るカテゴリです。"
+  },
+  {
+    href: "/items/anti-heal/",
+    title: "相手の回復を止めるアイテム",
+    body: "回復が多い相手に対して、どんな考え方で対策するかをまとめます。"
+  },
+  {
+    href: "/items/penetration/",
+    title: "防御を突破するアイテム",
+    body: "相手の前線が硬い時に、火力を通しやすくする考え方を整理します。"
+  },
+  {
+    href: "/items/mobility/",
+    title: "動きやすくなるアイテム",
+    body: "先に寄る、逃げる、仕掛けるといった位置取りを助けるアイテムを扱います。"
+  },
+  {
+    href: "/items/when-to-buy/",
+    title: "どういう時に買うか",
+    body: "アイテム名を覚える前に、どういう状況で何を足したいかを整理するページです。"
+  }
+];
+---
+
+<BaseLayout title="アイテム入門 | LoL Viewer Wiki" description="LoL観戦初心者向けに、アイテムの役割をカテゴリ別に整理した入門ページ。">
+  <main class="page">
+    <section class="container hero">
+      <p class="label">アイテム入門</p>
+      <h1>何を買っているかを見ると、次にしたいことが分かる。</h1>
+      <p class="lead">
+        アイテム名を全部覚える必要はありません。
+        まずは `火力を足したいのか`、`硬くなりたいのか`、`回復対策をしたいのか` のように、
+        役割ごとに見るだけで観戦の理解がかなり進みます。
+      </p>
+    </section>
+
+    <section class="container section">
+      <div class="section-header">
+        <p class="section-label">カテゴリ一覧</p>
+        <h2>まずは役割ごとに覚える</h2>
+      </div>
+
+      <div class="grid">
+        {categories.map((category) => (
+          <a class="card" href={category.href}>
+            <h3>{category.title}</h3>
+            <p>{category.body}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section class="container section section-split">
+      <article class="panel">
+        <p class="section-label">見方</p>
+        <h2>最初に見るポイント</h2>
+        <ul>
+          <li>前に出る役が防御寄りか、火力寄りか</li>
+          <li>ADC やメイジが、誰を倒したい形の買い方か</li>
+          <li>相手の回復や前線に対して、対策アイテムが出ているか</li>
+        </ul>
+      </article>
+
+      <article class="panel">
+        <p class="section-label">あわせて読む</p>
+        <h2>関連ページ</h2>
+        <ul>
+          <li><a href="/terms/gold/">ゴールド</a></li>
+          <li><a href="/roles/">ロール解説</a></li>
+          <li><a href="/champions/">チャンピオン一覧</a></li>
+        </ul>
+      </article>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .page { padding: 56px 0 72px; }
+  .container { width: min(1120px, calc(100% - 32px)); margin: 0 auto; }
+  .hero { margin-bottom: 24px; padding: 32px; border: 1px solid rgba(30, 28, 25, 0.12); border-radius: 28px; background: rgba(255, 252, 247, 0.92); box-shadow: 0 18px 40px rgba(60, 40, 22, 0.12); }
+  .label, .section-label { margin: 0 0 12px; color: #8f331f; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; font-size: 0.78rem; }
+  h1, h2, h3, p, ul { margin-top: 0; }
+  h1 { margin-bottom: 18px; font-size: clamp(2rem, 4vw, 3.5rem); line-height: 1.05; }
+  .lead, .card p, .panel li { color: #5f5a52; line-height: 1.7; }
+  .section { padding-top: 12px; }
+  .section-header { margin-bottom: 18px; }
+  .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+  .card, .panel { border-radius: 24px; border: 1px solid rgba(30, 28, 25, 0.12); background: rgba(255, 252, 247, 0.92); padding: 24px; box-shadow: 0 18px 40px rgba(60, 40, 22, 0.12); }
+  .section-split { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 18px; }
+  .panel ul { margin-bottom: 0; padding-left: 1.2rem; }
+  .panel li + li { margin-top: 10px; }
+  @media (max-width: 840px) { .grid, .section-split { grid-template-columns: 1fr; } .hero, .card, .panel { padding: 24px; border-radius: 22px; } }
+</style>

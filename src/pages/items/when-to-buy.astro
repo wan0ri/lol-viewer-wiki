@@ -1,0 +1,71 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="どういう時に買うか | LoL Viewer Wiki" description="LoL観戦初心者向けに、アイテムをどういう状況で買い分けるかを整理したページ。">
+  <main class="page">
+    <article class="container article">
+      <p class="label">アイテム入門</p>
+      <h1>どういう時に買うか</h1>
+      <p class="lead">アイテム名を丸暗記するより、`今の試合で何が足りないか` を見る方が理解しやすいです。このページでは、その見方だけを整理します。</p>
+
+      <section class="block">
+        <h2>まず考えること</h2>
+        <ul>
+          <li>相手を倒し切る火力が足りないのか</li>
+          <li>前に出るとすぐ倒されるのか</li>
+          <li>相手の回復や前線がつらいのか</li>
+          <li>先に位置を取れず、戦いが始まる前に不利になっているのか</li>
+        </ul>
+      </section>
+
+      <section class="block">
+        <h2>よくある見分け方</h2>
+        <ul>
+          <li><strong>倒し切れない</strong>: 火力や防御突破を足したい可能性があります。</li>
+          <li><strong>すぐ倒される</strong>: 防御や継戦能力を足したい可能性があります。</li>
+          <li><strong>回復で粘られる</strong>: 回復阻害を急ぐ価値があります。</li>
+          <li><strong>先に寄れない</strong>: 移動や位置取りを助ける要素が欲しいかもしれません。</li>
+        </ul>
+      </section>
+
+      <section class="block">
+        <h2>観戦ではここを見る</h2>
+        <ul>
+          <li>大きな集団戦の前後で、何を買い足したか</li>
+          <li>同じチャンピオンでも、試合ごとに買い方が変わっていないか</li>
+          <li>相手の構成に合わせて対策の方向が変わっていないか</li>
+        </ul>
+      </section>
+
+      <section class="block">
+        <h2>ここだけ覚えればOK</h2>
+        <p>アイテムは `最強の1個` を探すより、`今の困りごとに答えているか` で見ると理解しやすいです。</p>
+      </section>
+
+      <section class="links">
+        <a href="/items/damage/">火力を上げるアイテム</a>
+        <a href="/items/defense/">硬くなるアイテム</a>
+        <a href="/items/sustain/">回復や継戦能力</a>
+        <a href="/items/anti-heal/">相手の回復を止めるアイテム</a>
+        <a href="/items/penetration/">防御を突破するアイテム</a>
+        <a href="/items/mobility/">動きやすくなるアイテム</a>
+      </section>
+    </article>
+  </main>
+</BaseLayout>
+
+<style>
+  .page { padding: 56px 0 72px; }
+  .container { width: min(880px, calc(100% - 32px)); margin: 0 auto; }
+  .article { padding: 32px; border: 1px solid rgba(30, 28, 25, 0.12); border-radius: 28px; background: rgba(255, 252, 247, 0.92); box-shadow: 0 18px 40px rgba(60, 40, 22, 0.12); }
+  .label { margin: 0 0 12px; color: #8f331f; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; font-size: 0.78rem; }
+  h1, h2, p, ul { margin-top: 0; }
+  h1 { margin-bottom: 16px; font-size: clamp(2rem, 4vw, 3rem); line-height: 1.08; }
+  .lead, .block p, .block li { color: #5f5a52; line-height: 1.8; }
+  .block + .block { margin-top: 24px; }
+  .block ul { margin-bottom: 0; padding-left: 1.2rem; }
+  .block li + li { margin-top: 10px; }
+  .links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+  .links a { padding: 12px 16px; border-radius: 999px; background: rgba(30, 28, 25, 0.06); font-weight: 700; }
+</style>
