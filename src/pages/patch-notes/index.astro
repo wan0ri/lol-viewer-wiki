@@ -1,0 +1,90 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const patchNotes = (await getCollection("patchNotes"))
+  .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime());
+
+const latest = patchNotes[0];
+---
+
+<BaseLayout title="パッチノート要約 | LoL Viewer Wiki" description="LoLの最新パッチを、観戦初心者向けにやさしくまとめた一覧。">
+  <main class="page">
+    <section class="container hero">
+      <p class="label">パッチノート要約</p>
+      <h1>最新パッチで、観戦の見え方がどう変わるか。</h1>
+      <p class="lead">
+        数値を追いかけるためではなく、`配信で何を見ると変化を感じやすいか` を初心者向けに整理します。
+        このサイトでは、運営時点の最新パッチを中心に更新していく方針です。
+      </p>
+    </section>
+
+    {latest && (
+      <section class="container section">
+        <div class="section-header">
+          <p class="section-label">最新</p>
+          <h2>まず読むならこの1本</h2>
+        </div>
+
+        <a class="featured-card" href={`/patch-notes/${latest.id}/`}>
+          <div>
+            <p class="patch-version">Patch {latest.data.version}</p>
+            <h3>{latest.data.title}</h3>
+            <p>{latest.data.summary}</p>
+          </div>
+          <div class="featured-meta">
+            <span class={`impact ${latest.data.impact}`}>影響度: {latest.data.impact}</span>
+            <span>{latest.data.publishedAt.toLocaleDateString("ja-JP")}</span>
+          </div>
+        </a>
+      </section>
+    )}
+
+    <section class="container section">
+      <div class="section-header">
+        <p class="section-label">公開中</p>
+        <h2>掲載中のパッチ</h2>
+      </div>
+
+      <div class="grid">
+        {patchNotes.map((patch) => (
+          <a class="card" href={`/patch-notes/${patch.id}/`}>
+            <div class="card-top">
+              <h3>Patch {patch.data.version}</h3>
+              <span class={`impact ${patch.data.impact}`}>{patch.data.impact}</span>
+            </div>
+            <p>{patch.data.summary}</p>
+            <div class="meta">
+              <span>{patch.data.publishedAt.toLocaleDateString("ja-JP")}</span>
+              <span>{patch.data.featuredChampions.join(" / ")}</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .page { padding: 56px 0 72px; }
+  .container { width: min(1120px, calc(100% - 32px)); margin: 0 auto; }
+  .hero { margin-bottom: 24px; padding: 32px; border: 1px solid rgba(30, 28, 25, 0.12); border-radius: 28px; background: rgba(255, 252, 247, 0.92); box-shadow: 0 18px 40px rgba(60, 40, 22, 0.12); }
+  .label, .section-label { margin: 0 0 12px; color: #8f331f; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; font-size: 0.78rem; }
+  h1, h2, h3, p { margin-top: 0; }
+  h1 { margin-bottom: 18px; font-size: clamp(2rem, 4vw, 3.5rem); line-height: 1.05; }
+  .lead, .card p, .featured-card p { color: #5f5a52; line-height: 1.7; }
+  .section { padding-top: 12px; }
+  .section-header { margin-bottom: 18px; }
+  .featured-card, .card { display: block; border-radius: 24px; border: 1px solid rgba(30, 28, 25, 0.12); background: rgba(255, 252, 247, 0.92); padding: 24px; box-shadow: 0 18px 40px rgba(60, 40, 22, 0.12); }
+  .featured-card { display: grid; grid-template-columns: 1fr auto; gap: 18px; align-items: start; }
+  .patch-version { margin-bottom: 8px; color: #8f331f; font-weight: 700; }
+  .featured-meta, .meta { display: flex; flex-wrap: wrap; gap: 10px 16px; color: #6d665d; font-size: 0.92rem; }
+  .featured-meta { justify-content: flex-end; }
+  .impact { padding: 6px 10px; border-radius: 999px; font-size: 0.82rem; font-weight: 700; }
+  .impact.大 { background: rgba(187, 79, 53, 0.12); color: #8f331f; }
+  .impact.中 { background: rgba(196, 152, 47, 0.14); color: #7a5810; }
+  .impact.小 { background: rgba(30, 28, 25, 0.08); color: #5f5a52; }
+  .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+  .card-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
+  @media (max-width: 840px) { .grid { grid-template-columns: 1fr; } .featured-card { grid-template-columns: 1fr; } .hero { padding: 24px; border-radius: 22px; } }
+</style>

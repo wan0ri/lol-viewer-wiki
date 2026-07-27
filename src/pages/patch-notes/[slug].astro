@@ -1,0 +1,104 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+  const patchNotes = await getCollection("patchNotes");
+
+  return patchNotes.map((patch) => ({
+    params: { slug: patch.id },
+    props: { patch }
+  }));
+}
+
+const { patch } = Astro.props;
+const { Content } = await render(patch);
+const champions = await getCollection("champions");
+const terms = await getCollection("terms");
+
+const featuredChampions = patch.data.featuredChampions.map((title) => {
+  const entry = champions.find((candidate) => candidate.data.title === title);
+  return { title, href: entry ? `/champions/${entry.id}/` : null };
+});
+
+const featuredTerms = patch.data.featuredTerms.map((title) => {
+  const entry = terms.find((candidate) => candidate.data.title === title);
+  return { title, href: entry ? `/terms/${entry.id}/` : null };
+});
+---
+
+<BaseLayout title={`${patch.data.title} | LoL Viewer Wiki`} description={patch.data.summary}>
+  <main class="page">
+    <article class="container article">
+      <section class="hero">
+        <p class="label">パッチノート要約</p>
+        <h1>{patch.data.title}</h1>
+        <p class="lead">{patch.data.summary}</p>
+        <div class="meta">
+          <span>Patch {patch.data.version}</span>
+          <span>{patch.data.publishedAt.toLocaleDateString("ja-JP")}</span>
+          <span class={`impact ${patch.data.impact}`}>影響度: {patch.data.impact}</span>
+        </div>
+      </section>
+
+      <div class="body">
+        <Content />
+      </div>
+
+      <section class="links">
+        <div class="link-block">
+          <h2>次に読む</h2>
+          <ul>
+            {featuredChampions.map((champion) => (
+              <li>{champion.href ? <a href={champion.href}>{champion.title}</a> : champion.title}</li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="link-block">
+          <h2>あわせて読む</h2>
+          <ul>
+            {featuredTerms.map((term) => (
+              <li>{term.href ? <a href={term.href}>{term.title}</a> : term.title}</li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="link-block">
+          <h2>関連ページ</h2>
+          <ul>
+            <li><a href="/patch-notes/">パッチノート一覧</a></li>
+            <li><a href="/champions/">チャンピオン一覧</a></li>
+            <li><a href="/start/how-to-watch/">観戦するときにまず見るポイント</a></li>
+          </ul>
+        </div>
+      </section>
+    </article>
+  </main>
+</BaseLayout>
+
+<style>
+  .page { padding: 56px 0 72px; }
+  .container { width: min(880px, calc(100% - 32px)); margin: 0 auto; }
+  .article { display: grid; gap: 24px; }
+  .hero, .body, .link-block { padding: 32px; border: 1px solid rgba(30, 28, 25, 0.12); border-radius: 28px; background: rgba(255, 252, 247, 0.92); box-shadow: 0 18px 40px rgba(60, 40, 22, 0.12); }
+  .label { margin: 0 0 12px; color: #8f331f; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; font-size: 0.78rem; }
+  h1, h2, p, ul { margin-top: 0; }
+  h1 { margin-bottom: 16px; font-size: clamp(2rem, 4vw, 3rem); line-height: 1.08; }
+  .lead, .body, .links li { color: #5f5a52; line-height: 1.8; }
+  .meta { display: flex; flex-wrap: wrap; gap: 10px 16px; color: #6d665d; font-size: 0.92rem; }
+  .impact { padding: 6px 10px; border-radius: 999px; font-size: 0.82rem; font-weight: 700; }
+  .impact.大 { background: rgba(187, 79, 53, 0.12); color: #8f331f; }
+  .impact.中 { background: rgba(196, 152, 47, 0.14); color: #7a5810; }
+  .impact.小 { background: rgba(30, 28, 25, 0.08); color: #5f5a52; }
+  .body :global(h1) { display: none; }
+  .body :global(h2:first-child) { margin-top: 0; }
+  .body :global(h2) { margin: 30px 0 12px; }
+  .body :global(h3) { margin: 22px 0 10px; }
+  .body :global(p), .body :global(li) { color: #5f5a52; line-height: 1.8; }
+  .body :global(ul) { padding-left: 1.2rem; }
+  .links { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+  .link-block ul { margin-bottom: 0; padding-left: 1.2rem; }
+  .link-block li + li { margin-top: 10px; }
+  @media (max-width: 840px) { .hero, .body, .link-block { padding: 24px; border-radius: 22px; } .links { grid-template-columns: 1fr; } }
+</style>
