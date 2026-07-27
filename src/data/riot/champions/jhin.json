@@ -1,0 +1,37 @@
+{
+  "championKey": "Jhin",
+  "slug": "jhin",
+  "name": "ジン",
+  "title": "狂気の芸術家",
+  "image": "/images/champions/jhin.png",
+  "resource": "マナ",
+  "roles": ["ADC"],
+  "stats": {
+    "attack": 10,
+    "defense": 2,
+    "magic": 6,
+    "difficulty": 6
+  },
+  "skills": {
+    "passive": {
+      "name": "ささやき",
+      "description": "4発目の重い一撃が特徴で、戦い方の見え方を決めるパッシブ。"
+    },
+    "q": {
+      "name": "ダンシンググレネード",
+      "description": "跳ねる弾でミニオン処理と削りを行うスキル。"
+    },
+    "w": {
+      "name": "デッドリー フロリッシュ",
+      "description": "遠くの相手を止め、仕掛けのきっかけを作れるスキル。"
+    },
+    "e": {
+      "name": "キャプティブオーディエンス",
+      "description": "罠を置いて視界や通り道に圧をかけられるスキル。"
+    },
+    "r": {
+      "name": "カーテンコール",
+      "description": "遠くから狙撃して戦いに参加する大技。"
+    }
+  }
+}

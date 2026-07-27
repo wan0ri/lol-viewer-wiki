@@ -1,0 +1,37 @@
+{
+  "championKey": "JarvanIV",
+  "slug": "jarvan-iv",
+  "name": "ジャーヴァンⅣ",
+  "title": "デマーシアの模範",
+  "image": "/images/champions/jarvan-iv.png",
+  "resource": "マナ",
+  "roles": ["ジャングル"],
+  "stats": {
+    "attack": 7,
+    "defense": 6,
+    "magic": 3,
+    "difficulty": 5
+  },
+  "skills": {
+    "passive": {
+      "name": "戦場の絆",
+      "description": "最初の一撃が重く、仕掛けの始まりを強くしやすいパッシブ。"
+    },
+    "q": {
+      "name": "ドラゴンストライク",
+      "description": "槍を突き出して当たった相手へ圧をかける主力スキル。"
+    },
+    "w": {
+      "name": "ゴールデンイージス",
+      "description": "周囲の相手を減速しつつ自分を守るスキル。"
+    },
+    "e": {
+      "name": "デマーシアの旗印",
+      "description": "旗を立てて味方を支え、Qと組み合わせて飛び込めるスキル。"
+    },
+    "r": {
+      "name": "カタクリズム",
+      "description": "相手を囲い込み、戦いを一気に始める大技。"
+    }
+  }
+}

@@ -35,10 +35,10 @@ beginnerNotes:
   - スピリットラッシュを使い切った後は無理をしにくくなります。
 relatedTerms:
   - ローム
-  - バースト
+  - レベル
   - エンゲージ
 relatedPatchVersions:
-  - "15.15"
+  []
 ---
 
 # アーリ
