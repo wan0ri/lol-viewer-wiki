@@ -1,0 +1,253 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+  const champions = await getCollection("champions");
+
+  return champions.map((champion) => ({
+    params: { slug: champion.id },
+    props: { champion }
+  }));
+}
+
+const { champion } = Astro.props;
+const championDataEntries = await getCollection("championData");
+const terms = await getCollection("terms");
+const roles = await getCollection("roles");
+
+const riotData = championDataEntries.find((entry) => entry.data.championKey === champion.data.championKey);
+
+if (!riotData) {
+  throw new Error(`Missing championData for ${champion.data.championKey}`);
+}
+
+const statLabels = [
+  { label: "攻撃", value: riotData.data.stats.attack },
+  { label: "防御", value: riotData.data.stats.defense },
+  { label: "魔力", value: riotData.data.stats.magic },
+  { label: "難しさ", value: riotData.data.stats.difficulty }
+];
+
+const relatedTerms = champion.data.relatedTerms.map((title) => {
+  const entry = terms.find((term) => term.data.title === title);
+  return { title, href: entry ? `/terms/${entry.id}/` : null };
+});
+
+const roleLinks = champion.data.roles.map((roleName) => {
+  const entry = roles.find((role) => role.data.role === roleName);
+  return { title: roleName, href: entry ? `/roles/${entry.id}/` : null };
+});
+
+const patchLinks = champion.data.relatedPatchVersions.map((version) => ({
+  version,
+  href: `/patch-notes/latest/`
+}));
+---
+
+<BaseLayout title={`${champion.data.title} | チャンピオン解説 | LoL Viewer Wiki`} description={champion.data.summary}>
+  <main class="page">
+    <article class="container article">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="label">チャンピオン解説</p>
+          <h1>{champion.data.title}</h1>
+          <p class="subtitle">{riotData.data.title}</p>
+          <p class="tagline">{champion.data.tagline}</p>
+
+          <div class="hero-meta">
+            {champion.data.roles.map((role) => (
+              <span class="chip">{role}</span>
+            ))}
+            <span class="chip subtle">難易度: {champion.data.difficulty}</span>
+            <span class="chip subtle">リソース: {riotData.data.resource}</span>
+          </div>
+        </div>
+
+        <div class="portrait" aria-hidden="true">
+          {champion.data.title.slice(0, 1)}
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>ひとことで言うと</h2>
+        <p>{champion.data.summary}</p>
+      </section>
+
+      <section class="section stats-grid">
+        <div class="panel">
+          <h2>基本情報</h2>
+          <ul class="basic-list">
+            <li>主なロール: {champion.data.roles.join(" / ")}</li>
+            <li>肩書き: {riotData.data.title}</li>
+            <li>難易度: {champion.data.difficulty}</li>
+            <li>リソース: {riotData.data.resource}</li>
+          </ul>
+        </div>
+
+        <div class="panel">
+          <h2>見えやすい特徴</h2>
+          <div class="stat-bars">
+            {statLabels.map((stat) => (
+              <div class="stat-row">
+                <span>{stat.label}</span>
+                <div class="bar">
+                  <span style={`width:${stat.value * 10}%`}></span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section split">
+        <div class="panel">
+          <h2>得意なこと</h2>
+          <ul>
+            {champion.data.strengths.map((strength) => (
+              <li>{strength}</li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="panel">
+          <h2>苦手なこと</h2>
+          <ul>
+            {champion.data.weaknesses.map((weakness) => (
+              <li>{weakness}</li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>観戦で注目するポイント</h2>
+        <ul class="watch-list">
+          {champion.data.watchPoints.map((point) => (
+            <li>{point}</li>
+          ))}
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>スキルのやさしい解説</h2>
+        <div class="skills-grid">
+          <article class="skill-card">
+            <h3>パッシブ: {riotData.data.skills.passive.name}</h3>
+            <p>{riotData.data.skills.passive.description}</p>
+          </article>
+          <article class="skill-card">
+            <h3>Q: {riotData.data.skills.q.name}</h3>
+            <p>{riotData.data.skills.q.description}</p>
+          </article>
+          <article class="skill-card">
+            <h3>W: {riotData.data.skills.w.name}</h3>
+            <p>{riotData.data.skills.w.description}</p>
+          </article>
+          <article class="skill-card">
+            <h3>E: {riotData.data.skills.e.name}</h3>
+            <p>{riotData.data.skills.e.description}</p>
+          </article>
+          <article class="skill-card">
+            <h3>R: {riotData.data.skills.r.name}</h3>
+            <p>{riotData.data.skills.r.description}</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section split">
+        <div class="panel">
+          <h2>おすすめルーン</h2>
+          <p>メインルーン: {champion.data.recommendedRunes.primaryStyle}</p>
+          <p>サブルーン: {champion.data.recommendedRunes.secondaryStyle}</p>
+          <p>{champion.data.recommendedRunes.explanation}</p>
+        </div>
+
+        <div class="panel">
+          <h2>よくあるアイテム</h2>
+          <ul>
+            {champion.data.coreItems.map((item) => (
+              <li><strong>{item.name}</strong>: {item.reason}</li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>初心者向けメモ</h2>
+        <ul class="memo-list">
+          {champion.data.beginnerNotes.map((note) => (
+            <li>{note}</li>
+          ))}
+        </ul>
+      </section>
+
+      <section class="links">
+        <div class="link-block">
+          <h2>次に読む</h2>
+          <ul>
+            {roleLinks.map((role) => (
+              <li>{role.href ? <a href={role.href}>{role.title}</a> : role.title}</li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="link-block">
+          <h2>あわせて読む</h2>
+          <ul>
+            {relatedTerms.map((term) => (
+              <li>{term.href ? <a href={term.href}>{term.title}</a> : term.title}</li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="link-block">
+          <h2>関連ページ</h2>
+          <ul>
+            <li><a href="/champions/">チャンピオン一覧</a></li>
+            <li><a href="/start/how-to-watch/">観戦するときにまず見るポイント</a></li>
+            {patchLinks.map((patch) => (
+              <li><a href={patch.href}>パッチ {patch.version}</a></li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    </article>
+  </main>
+</BaseLayout>
+
+<style>
+  .page { padding: 56px 0 72px; }
+  .container { width: min(1040px, calc(100% - 32px)); margin: 0 auto; }
+  .article { display: grid; gap: 24px; }
+  .hero, .panel, .skill-card, .link-block, .section { border: 1px solid rgba(30, 28, 25, 0.12); background: rgba(255, 252, 247, 0.92); box-shadow: 0 18px 40px rgba(60, 40, 22, 0.12); }
+  .hero { display: grid; grid-template-columns: 1fr 200px; gap: 24px; align-items: center; padding: 32px; border-radius: 28px; }
+  .section { padding: 24px 28px; border-radius: 24px; }
+  .panel, .skill-card, .link-block { padding: 20px; border-radius: 22px; }
+  .label { margin: 0 0 12px; color: #8f331f; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; font-size: 0.78rem; }
+  h1, h2, h3, p, ul { margin-top: 0; }
+  h1 { margin-bottom: 8px; font-size: clamp(2.2rem, 4vw, 3.6rem); line-height: 1.04; }
+  .subtitle { margin-bottom: 12px; color: #8c8479; font-size: 1.05rem; }
+  .tagline, .section p, .panel p, .panel li, .skill-card p, .link-block li { color: #5f5a52; line-height: 1.8; }
+  .tagline { font-size: 1.05rem; }
+  .hero-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+  .chip { padding: 6px 10px; border-radius: 999px; background: rgba(187, 79, 53, 0.12); color: #8f331f; font-size: 0.84rem; font-weight: 700; }
+  .chip.subtle { background: rgba(30, 28, 25, 0.06); color: #5f5a52; }
+  .portrait { width: 200px; height: 200px; border-radius: 28px; display: grid; place-items: center; background: linear-gradient(135deg, rgba(187, 79, 53, 0.18), rgba(30, 28, 25, 0.08)); color: #8f331f; font-size: 4rem; font-weight: 800; }
+  .stats-grid, .split { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+  .basic-list, .watch-list, .memo-list, .panel ul, .link-block ul { margin-bottom: 0; padding-left: 1.2rem; }
+  .basic-list li + li, .watch-list li + li, .memo-list li + li, .panel li + li, .link-block li + li { margin-top: 10px; }
+  .stat-bars { display: grid; gap: 12px; }
+  .stat-row { display: grid; grid-template-columns: 52px 1fr; gap: 12px; align-items: center; color: #5f5a52; }
+  .bar { height: 10px; border-radius: 999px; background: rgba(30, 28, 25, 0.08); overflow: hidden; }
+  .bar span { display: block; height: 100%; border-radius: 999px; background: linear-gradient(90deg, #bb4f35, #d28b44); }
+  .skills-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 18px; }
+  .skills-grid .skill-card:last-child { grid-column: span 2; }
+  .links { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; }
+    .portrait { width: 100%; height: 140px; }
+    .stats-grid, .split, .skills-grid, .links { grid-template-columns: 1fr; }
+    .skills-grid .skill-card:last-child { grid-column: auto; }
+  }
+</style>

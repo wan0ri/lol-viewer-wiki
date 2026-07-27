@@ -1,0 +1,37 @@
+{
+  "championKey": "Orianna",
+  "slug": "orianna",
+  "name": "オリアナ",
+  "title": "時計仕掛けの舞姫",
+  "image": "/images/champions/orianna.png",
+  "resource": "マナ",
+  "roles": ["ミッド"],
+  "stats": {
+    "attack": 4,
+    "defense": 3,
+    "magic": 9,
+    "difficulty": 6
+  },
+  "skills": {
+    "passive": {
+      "name": "時計仕掛けのゼンマイ",
+      "description": "通常攻撃に追加ダメージが乗り、細かい削りを支えるパッシブ。"
+    },
+    "q": {
+      "name": "オーダー: 攻撃",
+      "description": "ボールの位置を動かし、他のスキルの起点を作る基本スキル。"
+    },
+    "w": {
+      "name": "オーダー: 乱気流",
+      "description": "周囲へダメージを出し、速度差も作れるスキル。"
+    },
+    "e": {
+      "name": "オーダー: 防御",
+      "description": "味方を守りながらボール位置を調整できるスキル。"
+    },
+    "r": {
+      "name": "オーダー: ショックウェーブ",
+      "description": "複数人をまとめて動かし、集団戦を大きく変える大技。"
+    }
+  }
+}

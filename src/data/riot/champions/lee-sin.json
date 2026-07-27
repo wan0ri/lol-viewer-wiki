@@ -1,0 +1,37 @@
+{
+  "championKey": "LeeSin",
+  "slug": "lee-sin",
+  "name": "リー・シン",
+  "title": "盲目の修行僧",
+  "image": "/images/champions/lee-sin.png",
+  "resource": "気",
+  "roles": ["ジャングル"],
+  "stats": {
+    "attack": 8,
+    "defense": 5,
+    "magic": 3,
+    "difficulty": 8
+  },
+  "skills": {
+    "passive": {
+      "name": "追風脚",
+      "description": "スキルの後に素早く通常攻撃を入れやすくなるパッシブ。"
+    },
+    "q": {
+      "name": "ソニックウェーブ / 共鳴撃",
+      "description": "相手を捉えて一気に飛び込める代表的なスキル。"
+    },
+    "w": {
+      "name": "守りの型 / 鉄壁",
+      "description": "味方や設置物へ移動しながら身を守れるスキル。"
+    },
+    "e": {
+      "name": "破風 / 縛脚",
+      "description": "近くの相手を見つけ、動きを抑えやすいスキル。"
+    },
+    "r": {
+      "name": "龍の怒り",
+      "description": "相手を強く蹴り飛ばし、戦いの形を大きく変える大技。"
+    }
+  }
+}

@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
+const roleOrder = ["トップ", "ジャングル", "ミッド", "ADC", "サポート"] as const;
 const championEntries = await getCollection("champions");
 const championDataEntries = await getCollection("championData");
 
@@ -21,6 +22,11 @@ const champions = championEntries
   })
   .filter((entry) => entry.riotData)
   .sort((a, b) => a.manual.data.title.localeCompare(b.manual.data.title, "ja"));
+
+const championsByRole = roleOrder.map((role) => ({
+  role,
+  champions: champions.filter(({ manual }) => manual.data.roles.includes(role))
+}));
 ---
 
 <BaseLayout title="チャンピオン一覧 | LoL Viewer Wiki" description="LoL観戦で見かけるチャンピオンを、役割と見どころから探せる一覧。">
@@ -37,41 +43,52 @@ const champions = championEntries
     <section class="container section">
       <div class="section-header">
         <p class="section-label">収録チャンピオン</p>
-        <h2>まずは代表的なチャンピオンから</h2>
+        <h2>まずはロールごとに代表的なチャンピオンから</h2>
       </div>
 
-      <div class="grid">
-        {champions.map(({ manual, riotData }) => (
-          <article class="card">
-            <div class="card-top">
-              <div>
-                <p class="name">{manual.data.title}</p>
-                <p class="subtitle">{riotData?.data.title}</p>
-              </div>
-              <div class="image-placeholder" aria-hidden="true">
-                {manual.data.title.slice(0, 1)}
-              </div>
+      <div class="role-sections">
+        {championsByRole.map(({ role, champions }) => (
+          <section class="role-block">
+            <div class="role-header">
+              <h3>{role}</h3>
+              <p>{champions.length}体</p>
             </div>
 
-            <ul class="roles" aria-label="主なロール">
-              {manual.data.roles.map((role) => (
-                <li>{role}</li>
+            <div class="grid">
+              {champions.map(({ id, manual, riotData }) => (
+                <a class="card" href={`/champions/${id}/`}>
+                  <div class="card-top">
+                    <div>
+                      <p class="name">{manual.data.title}</p>
+                      <p class="subtitle">{riotData?.data.title}</p>
+                    </div>
+                    <div class="image-placeholder" aria-hidden="true">
+                      {manual.data.title.slice(0, 1)}
+                    </div>
+                  </div>
+
+                  <ul class="roles" aria-label="主なロール">
+                    {manual.data.roles.map((roleName) => (
+                      <li>{roleName}</li>
+                    ))}
+                  </ul>
+
+                  <h4>ひとことで言うと</h4>
+                  <p>{manual.data.summary}</p>
+
+                  <div class="meta">
+                    <span>難易度: {manual.data.difficulty}</span>
+                    <span>リソース: {riotData?.data.resource}</span>
+                  </div>
+
+                  <div class="footer-links">
+                    <span class="detail-link">詳細ページを見る</span>
+                    <span class="related-link">関連用語へつなぐ</span>
+                  </div>
+                </a>
               ))}
-            </ul>
-
-            <h3>ひとことで言うと</h3>
-            <p>{manual.data.summary}</p>
-
-            <div class="meta">
-              <span>難易度: {manual.data.difficulty}</span>
-              <span>リソース: {riotData?.data.resource}</span>
             </div>
-
-            <div class="footer-links">
-              <span class="coming-soon">詳細ページは次段階で実装予定</span>
-              <a href={`/terms/`}>関連用語を見る</a>
-            </div>
-          </article>
+          </section>
         ))}
       </div>
     </section>
@@ -82,6 +99,7 @@ const champions = championEntries
         <h2>まず確認したい項目</h2>
         <ul>
           <li>名前</li>
+          <li>画像</li>
           <li>主なロール</li>
           <li>ひとことで言うと</li>
           <li>難易度とリソース</li>
@@ -160,11 +178,12 @@ const champions = championEntries
     margin-bottom: 18px;
   }
 
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 18px;
-  }
+  .role-sections { display: grid; gap: 24px; }
+  .role-block { display: grid; gap: 16px; }
+  .role-header { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+  .role-header h3, .role-header p { margin: 0; }
+  .role-header p { color: #6d665d; }
+  .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
 
   .card,
   .panel {
@@ -174,6 +193,7 @@ const champions = championEntries
     padding: 24px;
     box-shadow: 0 18px 40px rgba(60, 40, 22, 0.12);
   }
+  .card { display: block; }
 
   .card-top {
     display: flex;
@@ -242,10 +262,8 @@ const champions = championEntries
     border-top: 1px solid rgba(30, 28, 25, 0.08);
   }
 
-  .footer-links a {
-    color: #8f331f;
-    font-weight: 700;
-  }
+  .detail-link { color: #8f331f; font-weight: 700; }
+  .related-link { color: #8c8479; font-size: 0.92rem; }
 
   .section-split {
     display: grid;

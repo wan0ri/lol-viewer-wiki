@@ -1,0 +1,37 @@
+{
+  "championKey": "Nautilus",
+  "slug": "nautilus",
+  "name": "ノーチラス",
+  "title": "深海の巨人",
+  "image": "/images/champions/nautilus.png",
+  "resource": "マナ",
+  "roles": ["サポート"],
+  "stats": {
+    "attack": 4,
+    "defense": 6,
+    "magic": 6,
+    "difficulty": 4
+  },
+  "skills": {
+    "passive": {
+      "name": "錨鎖の一撃",
+      "description": "最初に殴った相手を止めやすいパッシブ。"
+    },
+    "q": {
+      "name": "錨打ち",
+      "description": "錨を飛ばして相手や壁へ引き寄せられる代表スキル。"
+    },
+    "w": {
+      "name": "大海の激憤",
+      "description": "自分を守りながら近くの相手へ圧を出せるスキル。"
+    },
+    "e": {
+      "name": "爆雷",
+      "description": "周囲へ波を広げて減速させるスキル。"
+    },
+    "r": {
+      "name": "デプスチャージ",
+      "description": "狙った相手へ確実に届きやすい戦闘開始の大技。"
+    }
+  }
+}

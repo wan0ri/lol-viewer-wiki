@@ -1,0 +1,37 @@
+{
+  "championKey": "KaiSa",
+  "slug": "kai-sa",
+  "name": "カイ＝サ",
+  "title": "虚空を狩る者",
+  "image": "/images/champions/kai-sa.png",
+  "resource": "マナ",
+  "roles": ["ADC"],
+  "stats": {
+    "attack": 8,
+    "defense": 4,
+    "magic": 6,
+    "difficulty": 6
+  },
+  "skills": {
+    "passive": {
+      "name": "ヴォイドシーカー",
+      "description": "複数回当てるほど単体への圧が増すパッシブ。"
+    },
+    "q": {
+      "name": "イカシアの雨",
+      "description": "近くの相手へ弾をばらまき、倒し切りに使いやすいスキル。"
+    },
+    "w": {
+      "name": "ヴォイドシーカー",
+      "description": "遠くから狙って当てられる長距離スキル。"
+    },
+    "e": {
+      "name": "スーパーチャージ",
+      "description": "位置を調整しながら戦うための加速スキル。"
+    },
+    "r": {
+      "name": "キラーボインスティンクト",
+      "description": "印のついた相手へ一気に飛び込める大技。"
+    }
+  }
+}

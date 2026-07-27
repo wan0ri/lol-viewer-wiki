@@ -1,0 +1,37 @@
+{
+  "championKey": "Thresh",
+  "slug": "thresh",
+  "name": "スレッシュ",
+  "title": "鎖の看守",
+  "image": "/images/champions/thresh.png",
+  "resource": "マナ",
+  "roles": ["サポート"],
+  "stats": {
+    "attack": 5,
+    "defense": 6,
+    "magic": 6,
+    "difficulty": 7
+  },
+  "skills": {
+    "passive": {
+      "name": "魂の残滓",
+      "description": "魂を集めて硬さと火力を伸ばすパッシブ。"
+    },
+    "q": {
+      "name": "デス センテンス",
+      "description": "当たると相手を捕まえ、仕掛けの起点になるフックスキル。"
+    },
+    "w": {
+      "name": "ダーク パッセージ",
+      "description": "味方を助けたり位置を変えたりできるランタン。"
+    },
+    "e": {
+      "name": "フレイ",
+      "description": "相手を押したり引いたりして位置を大きくずらせるスキル。"
+    },
+    "r": {
+      "name": "魂の牢獄",
+      "description": "周囲を壁で囲い、相手の動きを止めやすくする大技。"
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "championKey": "Renekton",
+  "slug": "renekton",
+  "name": "レネクトン",
+  "title": "砂漠の暴君",
+  "image": "/images/champions/renekton.png",
+  "resource": "怒り",
+  "roles": ["トップ"],
+  "stats": {
+    "attack": 8,
+    "defense": 5,
+    "magic": 2,
+    "difficulty": 3
+  },
+  "skills": {
+    "passive": {
+      "name": "強者の支配",
+      "description": "怒りを溜めると次のスキルが強化されるパッシブ。"
+    },
+    "q": {
+      "name": "カリング・ザ・ミーク",
+      "description": "周囲をなぎ払ってダメージを与え、体力も回復する主力スキル。"
+    },
+    "w": {
+      "name": "容赦なき捕食",
+      "description": "近くの相手を強く叩き、短く拘束するスキル。"
+    },
+    "e": {
+      "name": "スライス・アンド・ダイス",
+      "description": "前へ切り込み、位置を大きく動かせるスキル。"
+    },
+    "r": {
+      "name": "ドミナス",
+      "description": "巨大化して近くの相手へ圧をかけ続ける大技。"
+    }
+  }
+}

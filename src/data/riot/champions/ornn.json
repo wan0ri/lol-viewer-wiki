@@ -1,0 +1,37 @@
+{
+  "championKey": "Ornn",
+  "slug": "ornn",
+  "name": "オーン",
+  "title": "山の鍛冶神",
+  "image": "/images/champions/ornn.png",
+  "resource": "マナ",
+  "roles": ["トップ"],
+  "stats": {
+    "attack": 3,
+    "defense": 9,
+    "magic": 7,
+    "difficulty": 5
+  },
+  "skills": {
+    "passive": {
+      "name": "生ける鍛冶場",
+      "description": "店に戻らず装備を整えやすく、長い試合で味方も支えられるパッシブ。"
+    },
+    "q": {
+      "name": "火成岩の亀裂",
+      "description": "地面に柱を作り、仕掛けの形を作るスキル。"
+    },
+    "w": {
+      "name": "ふいごの息吹",
+      "description": "前方へ炎を吐き、近距離で強く当たれるスキル。"
+    },
+    "e": {
+      "name": "灼熱の突撃",
+      "description": "前へ突進し、地形に当たると大きく打ち上げるスキル。"
+    },
+    "r": {
+      "name": "脆弱なる神の呼び声",
+      "description": "遠くから羊を呼び寄せて戦いを始める大技。"
+    }
+  }
+}
