@@ -11,7 +11,7 @@ watchPoints:
   - ジャングルやサポートと一緒に人数差を作れているか
 relatedTerms:
   - ローム
-  - バースト
+  - レベル
   - 集団戦
 featuredChampions:
   - アーリ

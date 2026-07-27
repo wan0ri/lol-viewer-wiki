@@ -1,0 +1,111 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+  const roles = await getCollection("roles");
+
+  return roles.map((role) => ({
+    params: { slug: role.id },
+    props: { role }
+  }));
+}
+
+const { role } = Astro.props;
+const { Content } = await render(role);
+const allTerms = await getCollection("terms");
+const allChampions = await getCollection("champions");
+
+const relatedTerms = role.data.relatedTerms.map((relatedTitle) => {
+  const entry = allTerms.find((candidate) => candidate.data.title === relatedTitle);
+
+  return {
+    title: relatedTitle,
+    href: entry ? `/terms/${entry.id}/` : null
+  };
+});
+
+const featuredChampions = role.data.featuredChampions.map((championTitle) => {
+  const entry = allChampions.find((candidate) => candidate.data.title === championTitle);
+
+  return {
+    title: championTitle,
+    href: entry ? `/champions/` : null
+  };
+});
+---
+
+<BaseLayout title={`${role.data.title} | ロール解説 | LoL Viewer Wiki`} description={role.data.description}>
+  <main class="page">
+    <article class="container article">
+      <p class="label">ロール解説</p>
+      <h1>{role.data.title}</h1>
+      <p class="lead">{role.data.description}</p>
+
+      <section class="summary-grid">
+        <div class="panel">
+          <h2>主な役割</h2>
+          <ul>
+            {role.data.responsibilities.map((responsibility) => (
+              <li>{responsibility}</li>
+            ))}
+          </ul>
+        </div>
+        <div class="panel">
+          <h2>観戦で見るポイント</h2>
+          <ul>
+            {role.data.watchPoints.map((point) => (
+              <li>{point}</li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <div class="body">
+        <Content />
+      </div>
+
+      <section class="links">
+        <div class="link-block">
+          <h2>関連用語</h2>
+          <ul>
+            {relatedTerms.map((related) => (
+              <li>
+                {related.href ? <a href={related.href}>{related.title}</a> : related.title}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="link-block">
+          <h2>代表的なチャンピオン</h2>
+          <ul>
+            {featuredChampions.map((champion) => (
+              <li>
+                {champion.href ? <a href={champion.href}>{champion.title}</a> : champion.title}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    </article>
+  </main>
+</BaseLayout>
+
+<style>
+  .page { padding: 56px 0 72px; }
+  .container { width: min(880px, calc(100% - 32px)); margin: 0 auto; }
+  .article { padding: 32px; border: 1px solid rgba(30, 28, 25, 0.12); border-radius: 28px; background: rgba(255, 252, 247, 0.92); box-shadow: 0 18px 40px rgba(60, 40, 22, 0.12); }
+  .label { margin: 0 0 12px; color: #8f331f; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; font-size: 0.78rem; }
+  h1, h2, p, ul { margin-top: 0; }
+  h1 { margin-bottom: 16px; font-size: clamp(2rem, 4vw, 3rem); line-height: 1.08; }
+  .lead, .body, .panel li, .links li { color: #5f5a52; line-height: 1.8; }
+  .summary-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin: 28px 0; }
+  .panel, .link-block { padding: 20px; border-radius: 22px; background: rgba(30, 28, 25, 0.04); }
+  .panel ul, .link-block ul { margin-bottom: 0; padding-left: 1.2rem; }
+  .panel li + li, .link-block li + li { margin-top: 10px; }
+  .body :global(h1) { display: none; }
+  .body :global(p + p) { margin-top: 14px; }
+  .links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 28px; }
+  @media (max-width: 840px) { .article { padding: 24px; border-radius: 22px; } .summary-grid, .links { grid-template-columns: 1fr; } }
+</style>
