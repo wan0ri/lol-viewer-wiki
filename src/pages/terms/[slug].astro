@@ -169,4 +169,23 @@ const relatedPages = term.data.relatedPages.map((page) => ({
       grid-template-columns: 1fr;
     }
   }
+
+  @media (max-width: 640px) {
+    .page {
+      padding: 40px 0 56px;
+    }
+    .article {
+      padding: 20px;
+      border-radius: 18px;
+    }
+    h1 { font-size: 1.9rem; line-height: 1.12; }
+    h2 { font-size: 1.55rem; line-height: 1.2; }
+    .lead,
+    .body,
+    .links li,
+    .links p {
+      font-size: 1rem;
+      line-height: 1.75;
+    }
+  }
 </style>

@@ -250,4 +250,24 @@ const patchLinks = champion.data.relatedPatchVersions.map((version) => ({
     .stats-grid, .split, .skills-grid, .links { grid-template-columns: 1fr; }
     .skills-grid .skill-card:last-child { grid-column: auto; }
   }
+
+  @media (max-width: 640px) {
+    .page { padding: 40px 0 56px; }
+    .hero,
+    .section,
+    .panel,
+    .skill-card,
+    .link-block {
+      padding: 20px;
+      border-radius: 20px;
+    }
+    .stat-row {
+      grid-template-columns: 1fr;
+      gap: 6px;
+    }
+    .portrait {
+      height: 104px;
+      font-size: 2.4rem;
+    }
+  }
 </style>

@@ -94,4 +94,12 @@ const objectives = (await getCollection("objectives"))
   .panel ul { margin-bottom: 0; padding-left: 1.2rem; }
   .panel li + li { margin-top: 10px; }
   @media (max-width: 840px) { .grid, .section-split { grid-template-columns: 1fr; } .hero, .card, .panel { padding: 24px; border-radius: 22px; } }
+
+  @media (max-width: 640px) {
+    .page { padding: 40px 0 56px; }
+    .card-top {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  }
 </style>

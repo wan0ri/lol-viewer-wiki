@@ -87,4 +87,20 @@ const latest = patchNotes[0];
   .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
   .card-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
   @media (max-width: 840px) { .grid { grid-template-columns: 1fr; } .featured-card { grid-template-columns: 1fr; } .hero { padding: 24px; border-radius: 22px; } }
+
+  @media (max-width: 640px) {
+    .page { padding: 40px 0 56px; }
+    .featured-card,
+    .card {
+      padding: 20px;
+      border-radius: 20px;
+    }
+    .featured-meta {
+      justify-content: flex-start;
+    }
+    .card-top {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  }
 </style>

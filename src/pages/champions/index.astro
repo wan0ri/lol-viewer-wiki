@@ -294,4 +294,27 @@ const championsByRole = roleOrder.map((role) => ({
       border-radius: 22px;
     }
   }
+
+  @media (max-width: 640px) {
+    .page {
+      padding: 40px 0 56px;
+    }
+
+    .role-header,
+    .card-top {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    .image-placeholder {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      font-size: 1.1rem;
+    }
+
+    .name {
+      font-size: 1.15rem;
+    }
+  }
 </style>

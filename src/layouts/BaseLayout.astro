@@ -8,6 +8,8 @@ const {
   title = "LoL Viewer Wiki",
   description = "League of Legends の観戦初心者向けに、用語やチャンピオン、試合の見どころをやさしく解説するサイト。"
 } = Astro.props;
+
+const canonicalUrl = Astro.url ? new URL(Astro.url.pathname, Astro.site).toString() : undefined;
 ---
 
 <!doctype html>
@@ -17,6 +19,14 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="robots" content="index,follow" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="ja_JP" />
+    <meta property="og:site_name" content="LoL Viewer Wiki" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
+    {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
   </head>
   <body>
     <slot />
@@ -57,6 +67,22 @@ const {
   }
   a:hover {
     color: var(--accent-strong);
+  }
+  img,
+  svg,
+  video,
+  canvas {
+    max-width: 100%;
+    height: auto;
+  }
+  h1,
+  h2,
+  h3,
+  p,
+  li,
+  a,
+  span {
+    overflow-wrap: anywhere;
   }
   main {
     display: block;
