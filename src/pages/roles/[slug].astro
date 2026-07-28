@@ -108,4 +108,11 @@ const featuredChampions = role.data.featuredChampions.map((championTitle) => {
   .body :global(p + p) { margin-top: 14px; }
   .links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 28px; }
   @media (max-width: 840px) { .article { padding: 24px; border-radius: 22px; } .summary-grid, .links { grid-template-columns: 1fr; } }
+  @media (max-width: 640px) {
+    .page { padding: 40px 0 56px; }
+    .article, .panel, .link-block { padding: 20px; border-radius: 18px; }
+    h1 { font-size: 1.9rem; line-height: 1.12; }
+    h2 { font-size: 1.55rem; line-height: 1.2; }
+    .lead, .body, .panel li, .links li { font-size: 1rem; line-height: 1.75; }
+  }
 </style>

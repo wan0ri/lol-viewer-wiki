@@ -1,0 +1,98 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="ページが見つかりません | LoL Viewer Wiki" description="指定されたページは見つかりませんでした。主要ページから目的の情報を探し直せます。">
+  <main class="page">
+    <section class="container card">
+      <p class="label">404</p>
+      <h1>ページが見つかりませんでした。</h1>
+      <p class="lead">
+        URL が変わったか、存在しないページにアクセスしている可能性があります。
+        よく使う入口から探し直してください。
+      </p>
+
+      <div class="links">
+        <a class="link-card" href="/">トップページ</a>
+        <a class="link-card" href="/start/">はじめて見る人向け</a>
+        <a class="link-card" href="/terms/">用語集</a>
+        <a class="link-card" href="/champions/">チャンピオン一覧</a>
+        <a class="link-card" href="/patch-notes/latest/">最新パッチ要約</a>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .page {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 32px 0;
+  }
+
+  .container {
+    width: min(860px, calc(100% - 32px));
+    margin: 0 auto;
+  }
+
+  .card {
+    padding: 32px;
+    border: 1px solid rgba(30, 28, 25, 0.12);
+    border-radius: 28px;
+    background: rgba(255, 252, 247, 0.92);
+    box-shadow: 0 18px 40px rgba(60, 40, 22, 0.12);
+  }
+
+  .label {
+    margin: 0 0 12px;
+    color: #8f331f;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 0.78rem;
+  }
+
+  h1,
+  p {
+    margin-top: 0;
+  }
+
+  h1 {
+    margin-bottom: 16px;
+    font-size: clamp(2rem, 4vw, 3.3rem);
+    line-height: 1.06;
+  }
+
+  .lead {
+    color: #5f5a52;
+    line-height: 1.8;
+    margin-bottom: 24px;
+  }
+
+  .links {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .link-card {
+    display: block;
+    padding: 18px 20px;
+    border: 1px solid rgba(30, 28, 25, 0.12);
+    border-radius: 18px;
+    background: rgba(255, 252, 247, 0.92);
+    font-weight: 700;
+  }
+
+  @media (max-width: 720px) {
+    .card {
+      padding: 24px;
+      border-radius: 22px;
+    }
+
+    .links {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

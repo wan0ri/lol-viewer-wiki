@@ -4,6 +4,8 @@ League of Legends を「プレイはしないが配信や大会は見る」人�
 
 このリポジトリは、初心者が試合の流れを追いやすくなることを重視して作成します。対戦データ分析や個人プレイヤー情報ではなく、「何が起きているのか」を理解するための解説を主目的とします。
 
+公開先: `https://lol-viewer-wiki.pages.dev`
+
 ## 想定している内容
 
 - 初心者向け基礎ページ
@@ -34,6 +36,13 @@ League of Legends を「プレイはしないが配信や大会は見る」人�
 .
 ├── README.md
 ├── astro.config.mjs
+├── public/
+├── src/
+│   ├── components/
+│   ├── content/
+│   ├── data/
+│   ├── layouts/
+│   └── pages/
 └── docs/
     ├── architecture/
     │   ├── navigation.md
@@ -44,21 +53,14 @@ League of Legends を「プレイはしないが配信や大会は見る」人�
     └── project/
         ├── mvp-champions.md
         ├── mvp.md
+        ├── operations-flow.md
         ├── requirements.md
         └── tasks.md
 ```
 
-```text
-.
-├── public/
-├── src/
-│   ├── components/
-│   ├── content/
-│   ├── layouts/
-│   └── pages/
-├── package.json
-├── tsconfig.json
-└── wrangler.jsonc
-```
+## 公開メモ
 
-実装が始まったら、`src/` や `public/` などのアプリケーション構成を追加していく想定です。
+- 本番公開は `Cloudflare Pages`
+- 既定の公開URLは `pages.dev`
+- 独自ドメインは必須にしていない
+- `public/robots.txt` と `src/pages/sitemap.xml.ts` で公開向け最低限設定を管理
